@@ -4,11 +4,11 @@
     <sidebar class="sidebar-container" />
     <div :class="{hasTagsView:needTagsView}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
-        <navbar />
+        <navbar @toggleSettings="toggleSettingsPanel" />
         <tags-view v-if="needTagsView" />
       </div>
       <app-main />
-      <right-panel v-if="showSettings">
+      <right-panel v-if="showSettings" ref="rightPanel" :show-handle="false">
         <settings />
       </right-panel>
     </div>
@@ -52,6 +52,12 @@ export default {
   methods: {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
+    },
+    toggleSettingsPanel() {
+      const panel = this.$refs.rightPanel
+      if (panel) {
+        panel.toggle()
+      }
     }
   }
 }

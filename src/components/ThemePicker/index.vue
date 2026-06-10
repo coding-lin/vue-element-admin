@@ -25,17 +25,31 @@ export default {
   },
   watch: {
     defaultTheme: {
-      handler: function(val, oldVal) {
+      handler: function(val) {
         this.theme = val
       },
       immediate: true
     },
-    async theme(val) {
-      const oldVal = this.chalk ? this.theme : ORIGINAL_THEME
+    async theme(val, oldVal) {
       if (typeof val !== 'string') return
+      // 跳过初始化时的空值→默认值变更（由 mounted 中 applyTheme 处理）
+      if (!oldVal && val === this.$store.state.settings.theme && val !== ORIGINAL_THEME) return
+      await this.applyTheme(val)
+    }
+  },
+  mounted() {
+    // 页面加载时如果有保存的主题色且不是默认色，强制触发编译
+    const savedTheme = this.$store.state.settings.theme
+    if (savedTheme && savedTheme !== ORIGINAL_THEME) {
+      this.applyTheme(savedTheme)
+    }
+  },
+
+  methods: {
+    async applyTheme(val) {
+      const oldVal = ORIGINAL_THEME
       const themeCluster = this.getThemeCluster(val.replace('#', ''))
       const originalCluster = this.getThemeCluster(oldVal.replace('#', ''))
-      console.log(themeCluster, originalCluster)
 
       const $message = this.$message({
         message: '  Compiling the theme',
@@ -72,7 +86,7 @@ export default {
       const styles = [].slice.call(document.querySelectorAll('style'))
         .filter(style => {
           const text = style.innerText
-          return new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text)
+          return new RegExp(val, 'i').test(text) && !/Chalk Variables/.test(text)
         })
       styles.forEach(style => {
         const { innerText } = style
@@ -83,10 +97,7 @@ export default {
       this.$emit('change', val)
 
       $message.close()
-    }
-  },
-
-  methods: {
+    },
     updateStyle(style, oldCluster, newCluster) {
       let newStyle = style
       oldCluster.forEach((color, index) => {

@@ -1,9 +1,9 @@
 <template>
-  <div ref="rightPanel" :class="{show:show}" class="rightPanel-container">
+  <div ref="rightPanel" :class="{show:isOpen}" class="rightPanel-container">
     <div class="rightPanel-background" />
     <div class="rightPanel">
-      <div class="handle-button" :style="{'top':buttonTop+'px','background-color':theme}" @click="show=!show">
-        <i :class="show?'el-icon-close':'el-icon-setting'" />
+      <div v-if="showHandle" class="handle-button" :style="{'top':buttonTop+'px','background-color':theme}" @click="toggle">
+        <i :class="isOpen?'el-icon-close':'el-icon-setting'" />
       </div>
       <div class="rightPanel-items">
         <slot />
@@ -25,11 +25,15 @@ export default {
     buttonTop: {
       default: 250,
       type: Number
+    },
+    showHandle: {
+      default: true,
+      type: Boolean
     }
   },
   data() {
     return {
-      show: false
+      isOpen: false
     }
   },
   computed: {
@@ -38,7 +42,7 @@ export default {
     }
   },
   watch: {
-    show(value) {
+    isOpen(value) {
       if (value && !this.clickNotClose) {
         this.addEventClick()
       }
@@ -57,13 +61,18 @@ export default {
     elx.remove()
   },
   methods: {
+    toggle() {
+      this.isOpen = !this.isOpen
+    },
     addEventClick() {
-      window.addEventListener('click', this.closeSidebar)
+      setTimeout(() => {
+        window.addEventListener('click', this.closeSidebar)
+      }, 0)
     },
     closeSidebar(evt) {
       const parent = evt.target.closest('.rightPanel')
       if (!parent) {
-        this.show = false
+        this.isOpen = false
         window.removeEventListener('click', this.closeSidebar)
       }
     },

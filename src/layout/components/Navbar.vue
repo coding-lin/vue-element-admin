@@ -16,6 +16,12 @@
           <size-select id="size-select" class="right-menu-item hover-effect" />
         </el-tooltip>
 
+        <el-tooltip content="页面设置" effect="dark" placement="bottom">
+          <span id="settings-btn" class="right-menu-item hover-effect" @click="$emit('toggleSettings')">
+            <i class="el-icon-setting navbar-icon" />
+          </span>
+        </el-tooltip>
+
       </template>
 
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
@@ -128,6 +134,7 @@ export default {
       font-size: 18px;
       color: #5a5e66;
       vertical-align: text-bottom;
+      line-height: 50px;
 
       &.hover-effect {
         cursor: pointer;
@@ -136,6 +143,11 @@ export default {
         &:hover {
           background: rgba(0, 0, 0, .025)
         }
+      }
+
+      .navbar-icon {
+        font-size: 20px;
+        line-height: 50px;
       }
     }
 
