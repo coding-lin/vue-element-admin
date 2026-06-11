@@ -1,7 +1,7 @@
 <template>
   <el-dropdown :hide-on-click="false" :show-timeout="100" trigger="click">
     <el-button plain>
-      Platfroms({{ platforms.length }})
+      平台({{ platforms.length }})
       <i class="el-icon-caret-bottom el-icon--right" />
     </el-button>
     <el-dropdown-menu slot="dropdown" class="no-border">
@@ -26,9 +26,9 @@ export default {
   data() {
     return {
       platformsOptions: [
-        { key: 'a-platform', name: 'a-platform' },
-        { key: 'b-platform', name: 'b-platform' },
-        { key: 'c-platform', name: 'c-platform' }
+        { key: 'a-platform', name: '平台A' },
+        { key: 'b-platform', name: '平台B' },
+        { key: 'c-platform', name: '平台C' }
       ]
     }
   },

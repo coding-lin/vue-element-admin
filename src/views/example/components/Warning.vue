@@ -1,13 +1,12 @@
 <template>
   <aside>
-    Creating and editing pages cannot be cached by keep-alive because keep-alive include does not currently support
-    caching based on routes, so it is currently cached based on component name. If you want to achieve a similar caching
-    effect, you can use a browser caching scheme such as localStorage. Or do not use keep-alive include to cache all
-    pages directly. See details
+    创建和编辑页面无法被 keep-alive 缓存，因为 keep-alive 的 include 目前不支持根据路由缓存，
+    所以当前是基于组件名称来缓存的。如果想要实现类似的缓存效果，可以使用 localStorage 等浏览器缓存方案，
+    或者不使用 keep-alive include 直接缓存所有页面。详见
     <a
       href="https://panjiachen.github.io/vue-element-admin-site/guide/essentials/tags-view.html"
       target="_blank"
-    >Document</a>
+    >文档</a>
   </aside>
 </template>
 

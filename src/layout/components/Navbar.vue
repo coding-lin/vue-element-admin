@@ -33,15 +33,6 @@
           <router-link to="/profile/index">
             <el-dropdown-item>个人中心</el-dropdown-item>
           </router-link>
-          <!-- <router-link to="/">
-            <el-dropdown-item>仪表盘</el-dropdown-item>
-          </router-link> -->
-          <!-- <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a> -->
-          <!-- <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>文档</el-dropdown-item>
-          </a> -->
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">退出登录</span>
           </el-dropdown-item>
